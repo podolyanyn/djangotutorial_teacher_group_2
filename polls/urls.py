@@ -22,5 +22,6 @@ urlpatterns = [
     path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
     path('<int:question_id>/vote/', views.vote, name='vote'),
     path('new_question/', views.get_question, name='get_question'),
+    path('async/new_question/', views.async_get_question, name='async_get_question'),
 
 ]

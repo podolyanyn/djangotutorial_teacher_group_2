@@ -85,3 +85,19 @@ def get_question(request):
         form = QuestionForm()
 
     return render(request, 'polls/question.html', {'form': form})
+
+
+#----async version
+# async def make_book(*args, **kwargs):
+#     book = Book(...)
+#     await book.asave(using="secondary")
+
+
+async def async_get_question(request):
+    if request.method == 'GET':
+        form = QuestionForm()
+    return render(request, 'polls/async_question.html', {'form': form})
+
+async def detail(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, "polls/detail.html", {"question": question})
