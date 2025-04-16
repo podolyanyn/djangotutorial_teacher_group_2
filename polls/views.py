@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import permission_required
+import asyncio, time
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
@@ -60,8 +61,8 @@ def vote(request, question_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
-@login_required
-@permission_required("polls.add_question")
+# @login_required
+# @permission_required("polls.add_question")
 def get_question(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -86,7 +87,9 @@ def get_question(request):
 
     return render(request, 'polls/question.html', {'form': form})
 
-
+def test(request):
+    time.sleep(1)
+    return HttpResponse('test')
 #----async version
 # async def make_book(*args, **kwargs):
 #     book = Book(...)
@@ -101,3 +104,7 @@ async def async_get_question(request):
 async def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, "polls/detail.html", {"question": question})
+
+async def async_test(request):
+    await asyncio.sleep(1)
+    return HttpResponse("test")
